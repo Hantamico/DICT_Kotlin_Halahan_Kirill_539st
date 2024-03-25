@@ -6,10 +6,12 @@ fun main() {
 
     println("Привіт! Граємо у Камінь-ножиці-папір.")
     println("Виберіть свій варіант: Камінь, Ножиці або Папір:")
+    print("> ")
     val userChoice = readLine()
 
     if (userChoice !in options) {
         println("Ви ввели некоректний варіант. Спробуйте ще раз.")
+        main()
         return
     }
 
