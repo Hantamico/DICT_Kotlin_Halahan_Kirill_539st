@@ -1,52 +1,167 @@
 import kotlin.system.exitProcess
 
-fun greet(): String {
-    println("Hello! My name is DICT_Bot.")
-    println("Please, remind me your name.")
-    val name = readLine()!!
-    println("What a great name you have, $name!")
-    return name
-}
+fun main() {
+    println("Виберіть операцію:")
+    println("1. Перевірити чи число парне чи ні")
+    println("2. Помножити число на 4, якщо воно парне, і на 5, якщо воно не парне")
+    println("3. Повернути від'ємне число")
+    println("4. Визначити вік за роком народження")
+    println("5. Знайти мінімальне число в масиві")
+    println("6. Знайти два найбільших числа в масиві")
+    println("7. Порахувати кількість позитивних чисел і суму негативних чисел у масиві")
+    println("8. Порахувати кількість голосних букв у рядку")
+    println("9. Знайти середній символ у рядку")
+    println("10. Створити таблицю множення")
 
-fun guessAge() {
-    println("Let me guess your age.")
-    println("Enter remainders of dividing your age by 3, 5 and 7.")
-    val remainder3 = readLine()!!.toInt()
-    val remainder5 = readLine()!!.toInt()
-    val remainder7 = readLine()!!.toInt()
-    val age = (remainder3 * 70 + remainder5 * 21 + remainder7 * 15) % 105
-    println("Your age is $age!")
-}
+    val choice = readLine()?.toIntOrNull()
 
-fun count() {
-    println("Now I will prove to you that I can count to any number you want.")
-    val num = readLine()!!.toInt()
-    for (i in 0..num) {
-        println("$i!")
-    }
-}
-
-fun test() {
-    println("Let's test your programming knowledge.")
-    println("Why do we use methods?")
-    println("1. To repeat a statement multiple times.")
-    println("2. To decompose a program into several small subroutines.")
-    println("3. To determine the execution time of a program.")
-    println("4. To interrupt the execution of a program.")
-    while (true) {
-        val answer = readLine()!!
-        if (answer == "2") {
-            break
-        } else {
-            println("Please, try again.")
+    when (choice) {
+        1 -> {
+            println("Введіть число:")
+            val number = readLine()?.toIntOrNull()
+            if (number != null) {
+                println(getEvenOrOdd(number))
+            } else {
+                println("Некоректне введення числа.")
+            }
+        }
+        2 -> {
+            println("Введіть число:")
+            val number = readLine()?.toIntOrNull()
+            if (number != null) {
+                println(multiplyByFourOrFive(number))
+            } else {
+                println("Некоректне введення числа.")
+            }
+        }
+        3 -> {
+            println("Введіть число:")
+            val number = readLine()?.toIntOrNull()
+            if (number != null) {
+                println(getNegativeNumber(number))
+            } else {
+                println("Некоректне введення числа.")
+            }
+        }
+        4 -> {
+            println("Введіть рік:")
+            val year = readLine()?.toIntOrNull()
+            if (year != null) {
+                println(calculateAge(year))
+            } else {
+                println("Некоректне введення року.")
+            }
+        }
+        5 -> {
+            println("Введіть числа через пробіл:")
+            val input = readLine()
+            val numbers = input?.split(" ")?.map { it.toIntOrNull() }
+            if (numbers != null && numbers.all { it != null }) {
+                println(findMinimum(numbers.filterNotNull()))
+            } else {
+                println("Некоректне введення чисел.")
+            }
+        }
+        6 -> {
+            println("Введіть числа через пробіл:")
+            val input = readLine()
+            val numbers = input?.split(" ")?.map { it.toIntOrNull() }
+            if (numbers != null && numbers.all { it != null }) {
+                println(findTwoLargest(numbers.filterNotNull()))
+            } else {
+                println("Некоректне введення чисел.")
+            }
+        }
+        7 -> {
+            println("Введіть числа через пробіл:")
+            val input = readLine()
+            val numbers = input?.split(" ")?.map { it.toIntOrNull() }
+            if (numbers != null && numbers.all { it != null }) {
+                println(countPositiveAndNegative(numbers.filterNotNull()))
+            } else {
+                println("Некоректне введення чисел.")
+            }
+        }
+        8 -> {
+            println("Введіть рядок:")
+            val str = readLine()
+            if (!str.isNullOrBlank()) {
+                println(countVowels(str))
+            } else {
+                println("Рядок не може бути порожнім.")
+            }
+        }
+        9 -> {
+            println("Введіть рядок:")
+            val str = readLine()
+            if (!str.isNullOrBlank()) {
+                println(findMiddleCharacter(str))
+            } else {
+                println("Рядок не може бути порожнім.")
+            }
+        }
+        10 -> {
+            println("Введіть розмір таблиці:")
+            val n = readLine()?.toIntOrNull()
+            if (n != null) {
+                println(createMultiplicationTable(n))
+            } else {
+                println("Некоректне введення розміру таблиці.")
+            }
+        }
+        else -> {
+            println("Некоректний вибір.")
+            exitProcess(1)
         }
     }
-    println("Congratulations, have a nice day!")
 }
-fun main() {
-    val name = greet()
-    guessAge()
-    count()
-    test()
-    exitProcess(0)
+
+fun getEvenOrOdd(number: Int): String {
+    return if (number % 2 == 0) "Even" else "Odd"
+}
+
+fun multiplyByFourOrFive(number: Int): Int {
+    return if (number % 2 == 0) number * 4 else number * 5
+}
+
+fun getNegativeNumber(number: Int): Int {
+    return -number
+}
+
+fun calculateAge(year: Int): Int {
+    return 2024-year
+}
+
+fun findMinimum(numbers: List<Int>): Int {
+    return numbers.minOrNull() ?: 0
+}
+
+fun findTwoLargest(numbers: List<Int>): List<Int> {
+    val sortedNumbers = numbers.sorted()
+    return sortedNumbers.subList(sortedNumbers.size - 2, sortedNumbers.size).reversed()
+}
+
+fun countPositiveAndNegative(numbers: List<Int>): List<Int> {
+    if (numbers.isEmpty()) return emptyList()
+    val positiveCount = numbers.count { it > 0 }
+    val negativeSum = numbers.filter { it < 0 }.sum()
+    return listOf(positiveCount, negativeSum)
+}
+
+fun countVowels(str: String): Int {
+    val vowels = "aeiouy"
+    return str.count { it.toLowerCase() in vowels }
+}
+
+fun findMiddleCharacter(str: String): String {
+    val middleIndex = str.length / 2
+    return if (str.length % 2 == 0) str.substring(middleIndex - 1, middleIndex + 1) else str.substring(middleIndex, middleIndex + 1)
+}
+
+fun createMultiplicationTable(n: Int): List<List<Int>> {
+    return List(n) { i ->
+        List(n) { j ->
+            (i + 1) * (j + 1)
+        }
+    }
 }
