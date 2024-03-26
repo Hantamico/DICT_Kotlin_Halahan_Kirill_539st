@@ -43,10 +43,3 @@ fun test() {
     }
     println("Congratulations, have a nice day!")
 }
-fun main() {
-    val name = greet()
-    guessAge()
-    count()
-    test()
-    exitProcess(0)
-}
